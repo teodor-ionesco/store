@@ -4,69 +4,51 @@
 
 @section('body')
 
-<table border="1">
-	<thead>
-		<tr>
-			<td>Produs</td>
-			<td>Cantitate</td>
-			<td>Adaugă în coș</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<form method="POST" action="/cart/add?return={{ url() -> current() }}">
-				{{ csrf_field() }}
-				<td>Mere și pere</td>
-				<input type="text" name="product" hidden="" value="Mere și pere">
-				<td>
-					<select name="quantity">
-						<option value="0" selected="">0</option>
-						<option value="1">1</option>
-						<option value="2" >2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-				</td>
-				<td><input type="submit" name="" value="Adaugă"></td>
-			</form>
-		</tr>
-		<tr>
-			<form method="POST" action="/cart/add?return={{ url() -> current() }}">
-				{{ csrf_field() }}			
-				<td>Pere și bere</td>
-				<input type="text" name="product" hidden="" value="Pere și bere">
-				<td>
-					<select name="quantity">
-						<option value="0" >0</option>
-						<option value="1" >1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-				</td>
-				<td><input type="submit" name="" value="Adaugă"></td>			
-			</form>
-		</tr>
-		<tr>
-			<form method="POST" action="/cart/add?return={{ url() -> current() }}">
-				{{ csrf_field() }}					
-				<td>Bere și sfeclă</td>
-				<input type="text" name="product" hidden="" value="Bere și sfeclă">
-				<td>
-					<select name="quantity">
-						<option value="0" selected="">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-				</td>
-				<td><input type="submit" name="" value="Adaugă"></td>		
-			</form>	
-		</tr>
-	</tbody>
-</table>
+<main>
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m5 l4">
+			      <div class="card blue-grey darken-1">
+			        <div class="card-content white-text">
+			          <span class="card-title">Pere</span>
+			          <p>Descriere succintă</p>
+			        </div>
+			        <div class="card-action">
+			        	<form method="POST" action="/cart/add?return={{ url() -> current() }}">
+			        		{{ csrf_field() }}
+			        		<input type="text" name="product" hidden="" value="Pere">
 
-<a href="/cart">Verifică coșul</a>
+							<input type="submit" class="btn blue waves-effect" value="Adaugă în coș">
+							<select name="quantity" style="display: block; width: 70%">
+			        			<option value="0" selected="">0</option>
+			        			<option value="1">1</option>
+			        			<option value="2">2</option>
+			        			<option value="3">3</option>
+			        		</select>
+							<br>
+							<a class="btn " href="#" onclick="M.toast({html: 'Un link care va duce la o pagină cu descrierea produsului'})">Descriere produs</a>
+			      		</form>
+			        </div>
+			      </div>		
+			</div>
+		
+		</div>
+	</div>
+</main>
+@endsection
 
+@section('js')
+// <script>
+
+	$(document).ready(function(){
+		<?php 
+			if(!empty($MESSAGE))
+				print("M.toast({html: '$MESSAGE'});");
+
+			if(!empty($_GET['toast']))
+				print("M.toast({html: '$_GET[toast]'});");
+		?>
+	});
+	
+// </script>
 @endsection

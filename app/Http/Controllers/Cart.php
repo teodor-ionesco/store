@@ -15,7 +15,8 @@ class Cart extends Controller
     	//return response(Session::get('products'));
 
     	return view('cart', [
-    		'PRODUCTS' => Session::get('products'),
+    		'PRODUCTS' => !empty(Session::get('products')) ? Session::get('products') : [],
+    		'PRODUCTS_COUNT' => Session::has('products') ? count(Session::get('products')) : 0,
     	]);
     }
 
@@ -40,7 +41,7 @@ class Cart extends Controller
     		]);
     	}
 
-    	return redirect($_GET['return']);
+    	return redirect($_GET['return'] . '?toast=Product added');
     }
 
     /*

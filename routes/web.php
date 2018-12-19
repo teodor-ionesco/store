@@ -14,4 +14,5 @@
 Route::get('/', 'HomePage@index');
 Route::get('/cart', 'Cart@index');
 Route::get('/cart/remove/{product}', 'Cart@remove');
+
 Route::post('/cart/add', 'Cart@add');
