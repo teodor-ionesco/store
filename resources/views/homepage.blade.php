@@ -40,15 +40,5 @@
 @section('js')
 // <script>
 
-	$(document).ready(function(){
-		<?php 
-			if(!empty($MESSAGE))
-				print("M.toast({html: '$MESSAGE'});");
-
-			if(!empty($_GET['toast']))
-				print("M.toast({html: '$_GET[toast]'});");
-		?>
-	});
-	
 // </script>
 @endsection

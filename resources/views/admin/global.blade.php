@@ -11,32 +11,22 @@
 	</head>
 	<body>
 		<!--- header --->
-		<nav>
+		<nav class="blue darken-2">
 			<div class="nav-wrapper">
-				<a href="//{{ $_SERVER['SERVER_NAME'] }}:{{ $_SERVER['SERVER_PORT']}}" class="brand-logo">Home</a>
+				<a href="/admin" class="brand-logo">Dashboard</a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
-					<li>
-						<a href="cart" style="">
-							Coș
-							@if($PRODUCTS_COUNT > 0)
-								<div class="chip" style="background-color: red; color: white;">{{ $PRODUCTS_COUNT }}</div>
-							@endif
-						</a>
-					</li>
+					<li> <a href="/admin/products">Products</a> </li>
+					<li> <a href="/admin/contact">Contact</a> </li>
+					<li> <a href="/a/logout">Logout</a></li>
 				</ul>
 			</div>
 		</nav>
 
 		<ul class="sidenav" id="mobile-demo">
-			<li>
-				<a href="cart" style="">
-					Coș
-					@if($PRODUCTS_COUNT > 0)
-						<div class="chip" style="background-color: red; color: white;">{{ $PRODUCTS_COUNT }}</div>
-					@endif
-				</a>
-			</li>
+			<li> <a href="/admin/products">Products</a> </li>
+			<li> <a href="/admin/contact">Contact</a> </li>
+			<li> <a href="/a/logout">Logout</a></li>
 		</ul>
 		<!--- /header --->		
 
@@ -47,8 +37,8 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('.sidenav').sidenav();
-			});			
-			
+			});
+
 			@if(!empty($TOAST))
 				$(document).ready(function(){
 					M.toast({html: '{{ $TOAST }}'});
@@ -59,7 +49,7 @@
 				$(document).ready(function(){
 					M.toast({html: "{{ $_GET['toast'] }}"});
 				});
-			@endif			
+			@endif
 		</script>
 		<script type="text/javascript">@yield('js')</script>
 	</body>
