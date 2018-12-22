@@ -91,15 +91,21 @@ class Products extends Controller
     	if(!MProducts::select('cover') -> where('id', $id) -> first())
     		return redirect('/admin/products?toast=Such product does not exist.');
 
-    	/* Delete old cover from filesystem */    	
-    	Storage::disk('public') -> delete(MProducts::select(['cover']) -> where('id', $id) -> first() -> cover);
+    	/* Delete old cover from filesystem */
+    	if(!empty($request -> file('cover')))
+    	{
+    		Storage::disk('public') -> delete(MProducts::select(['cover']) -> where('id', $id) -> first() -> cover);
+
+    		MProducts::where('id', $id) -> update([
+				'cover' => Storage::disk('public') -> putFile('/', $request -> file('cover')),
+    		]);
+    	}
 
     	/* Update records */
     	MProducts::where('id', $id) -> update([
     		'title' => $request -> input('title'),
     		'brief' => $request -> input('brief'),
     		'description' => $request -> input('description'),
-    		'cover' => empty($request -> file('cover')) ? false : Storage::disk('public') -> putFile('/', $request -> file('cover')),
     	]);
 
     	return redirect('/admin/products/' . $id);
