@@ -44,6 +44,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 	{
 		Route::get('/', 'Admin\Index@index');
 		
+		/* Products */
 		Route::prefix('products') -> group(function()
 		{
 			Route::get('/', 'Admin\Products@index');
@@ -53,6 +54,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 			Route::patch('/{id}', 'Admin\Products@update');
 			Route::delete('/{id}', 'Admin\Products@delete');
 		});
+
+		/* Contact information */
+		Route::get('/contact', 'Admin\Contact@index');
+		Route::patch('/contact', 'Admin\Contact@update');
 	});
 
 /*
