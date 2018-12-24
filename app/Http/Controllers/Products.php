@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Products as MProducts;
 
-class HomePage extends Controller
+class Products extends Controller
 {
-    public function index()
-    {
+	/* Read product */
+    public function read($id)
+	{
 		$count_products = 0;
 		
 		if(Session::has('products'))
@@ -21,9 +22,9 @@ class HomePage extends Controller
 			}
 		}
 		
-    	return view('homepage', [
-    		'PRODUCTS_COUNT' => $count_products,
-			'PRODUCTS' => MProducts::select(['id', 'brief', 'title', 'cover']) -> get(),
-    	]);
-    }
+		return view('product', [
+			'PRODUCTS_COUNT' => $count_products,
+			'PRODUCT' => MProducts::where('id', $id) -> first(),
+		]);
+	}
 }

@@ -12,12 +12,32 @@
 */
 
 Route::get('/', 'HomePage@index');
-Route::get('/cart', 'Cart@index');
-Route::get('/cart/remove/{product}', 'Cart@remove');
 
-Route::post('/cart/add', 'Cart@add');
-Route::get('/home', 'HomeController@index')->name('home');
+/*
+******	Products
+*/
+	Route::get('/products/{id}', 'Products@read');
+/*
+******
+*/
 
+/*
+******	Cart
+*/
+	Route::get('/cart', 'Cart@index');
+	Route::delete('/cart/remove', 'Cart@remove');
+	Route::post('/cart/add', 'Cart@add');
+/*
+******
+*/
+
+/*
+******	Contact
+*/
+	Route::post('/contact', 'Contact@send');
+/*
+******
+*/
 
 /*
 ******	Filesystem

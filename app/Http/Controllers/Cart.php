@@ -12,11 +12,30 @@ class Cart extends Controller
 	*/
     public function index()
     {
+		//Session::flush();
     	//return response(Session::get('products'));
 
+		$count_products = 0;
+		$actual_products = [];
+		
+		if(Session::has('products'))
+		{
+			foreach(Session::get('products') as $key => $array)
+			{
+				if($array !== null)
+					$count_products++;
+			}
+			
+			foreach(Session::get('products') as $key => $array)
+			{
+				if($array !== null)
+					$actual_products[$key] = $array;
+			}
+		}
+
     	return view('cart', [
-    		'PRODUCTS' => !empty(Session::get('products')) ? Session::get('products') : [],
-    		'PRODUCTS_COUNT' => Session::has('products') ? count(Session::get('products')) : 0,
+    		'PRODUCTS' => $actual_products,
+    		'PRODUCTS_COUNT' =>  $count_products,
     	]);
     }
 
@@ -29,14 +48,18 @@ class Cart extends Controller
     	if(!Session::has('products'))
     	{
     		Session::put('products.0', [
-    			'product' => $request -> input('product'),
+    			'id' => $request -> input('id'),
+				'name' => $request -> input('name'),
+				'price' => $request -> input('price'),
     			'quantity' => $request -> input('quantity'),
     		]);
     	}
     	else
     	{
     		Session::put('products.'. count(Session::get('products')), [
-    			'product' => $request -> input('product'),
+    			'id' => $request -> input('id'),
+				'name' => $request -> input('name'),
+				'price' => $request -> input('price'),
     			'quantity' => $request -> input('quantity'),
     		]);
     	}
@@ -47,10 +70,10 @@ class Cart extends Controller
     /*
     *	Remove product from cart
     */
-    public function remove($product)
+    public function remove(Request $request)
     {
-    	Session::remove('products.'.$product);
+		Session::put('products.'. $request -> input('nr'), null);
 
-    	return redirect($_GET['return']);
+    	return redirect($_GET['return']. '?toast=Produs sters cu success!');
     }
 }

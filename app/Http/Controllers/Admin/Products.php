@@ -21,7 +21,7 @@ class Products extends Controller
     public function index() 
     {
     	return view('admin.products', [
-    		'PRODUCTS' => MProducts::select(['id', 'title', 'brief', 'cover']) -> get(),
+    		'PRODUCTS' => MProducts::select(['id', 'title', 'brief', 'cover', 'price']) -> get(),
     		'TOAST' => !empty($this -> Bridge['TOAST']) ? $this -> Bridge['TOAST'] : null,
     	]);
     }
@@ -38,6 +38,7 @@ class Products extends Controller
     		'title' => $request -> input('title'),
     		'brief' => $request -> input('brief'),
     		'description' => $request -> input('description'),
+			'price' => $request -> input('price'),
     		'cover' => empty($request -> file('cover')) ?: Storage::disk('public') -> putFile('/', $request -> file('cover')),
     	]);
 
@@ -105,6 +106,7 @@ class Products extends Controller
     	MProducts::where('id', $id) -> update([
     		'title' => $request -> input('title'),
     		'brief' => $request -> input('brief'),
+			'price' => $request -> input('price'),
     		'description' => $request -> input('description'),
     	]);
 
