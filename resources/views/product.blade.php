@@ -10,7 +10,7 @@
 </div>
 
 <div>
-{{ $PRODUCT -> description }}
+<?= html_entity_decode($PRODUCT -> description) ?>
 </div>
 
 <div class="produs" style="margin-top:250px; float:right; margin-right:50px;">

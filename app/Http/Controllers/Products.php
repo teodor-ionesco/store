@@ -13,6 +13,7 @@ class Products extends Controller
 	{
 		$count_products = 0;
 		
+		/* Cart stuff */
 		if(Session::has('products'))
 		{
 			foreach(Session::get('products') as $key => $array)
